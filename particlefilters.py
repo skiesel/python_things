@@ -400,6 +400,7 @@ def main():
 	# random.seed(2)
 
 	pygame.init()
+	pygame.display.set_caption('Particle Filter')
 	screen = pygame.display.set_mode((maxX, maxY))
 
 	map = Map(15, 6, 150, 0, maxX, 0, maxY)
