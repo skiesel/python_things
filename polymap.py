@@ -4,11 +4,12 @@ import pygame
 from helpers import *
 
 class PolyMap:
-	def __init__(self, numPolys, numVertices, radius, minX, maxX, minY, maxY):
+	def __init__(self, numPolys, numVertices, radius, minX, maxX, minY, maxY, color=black):
 		self.minX = minX
 		self.maxX = maxX
 		self.minY = minY
 		self.maxY = maxY
+		self.color = color
 		self.numVertices = numVertices
 		self.polygons = self.__generateMap(numPolys, numVertices, radius, minX, maxX, minY, maxY)
 		self.spatialIndex = pyqtree.Index(bbox=[minX, minY, maxX, maxY])
@@ -157,7 +158,7 @@ class PolyMap:
 		return (x, y)
 
 	def __drawPolygon(self, screen, polyPoints):
-		pygame.draw.polygon(screen, black, polyPoints)
+		pygame.draw.polygon(screen, self.color, polyPoints)
 
 	def __pointInPoly(self, point, poly):
 		point = ShapelyPoint(point.x, point.y)
