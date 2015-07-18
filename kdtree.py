@@ -1,4 +1,3 @@
-import random
 import math
 
 class KDPoint:
@@ -75,51 +74,3 @@ class KDTree:
                     bestNode, bestDistance = lookLeft(bestNode, bestDistance)
 
         return bestNode, bestDistance
-
-def getRandomPoint(dimensionality):
-    point = ()
-    for j in range(dimensionality):
-        point += (random.random(),)
-    return point
-
-def getRandomPoints(howmany, dimensionality):
-    pointList = []
-    for i in range(howmany):
-        pointList.append(getRandomPoint(dimensionality))
-    return pointList
-
-def linearScan(pointList, queryPoint):
-    bestNode = None
-    bestDistance = float("inf")
-    for point in pointList:
-        distance = defaultDistance(KDPoint(point), KDPoint(queryPoint))
-        if distance < bestDistance:
-            bestDistance = distance
-            bestNode = KDPoint(point)
-    return bestNode, bestDistance
-
-def test():
-    dimensionality = 3
-    kdtree = KDTree(dimensionality)
-    pointList = getRandomPoints(1000, dimensionality)
-
-    for point in pointList:
-        kdtree.insert(KDPoint(point))
-
-    queryList = getRandomPoints(1000, dimensionality)
-    for point in queryList:
-        kdNode, kdDist = kdtree.nearest(KDPoint(point))
-        lNode, lDist = linearScan(pointList, point)
-        if math.fabs(kdDist - lDist) > 0.0001:
-            print(pointList)
-            print("mistake")
-            print(point)
-            print("------------")
-            print(lDist)
-            print(lNode.point)
-            print("------------")
-            print(kdDist)
-            print(kdNode.point)
-            exit()
-
-test()
